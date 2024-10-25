@@ -3,13 +3,20 @@ services:
   nginx:
     build:
       context: requirements/nginx/
+    container_name: nginx
     ports:
-      - "8080:80"
-    
-  mariadb:
-    build:
-      context: requirements/mariadb/
-    
+      - "443:443"
+    volumes:
+      - ./www:/var/www/html
+
   wordpress:
     build:
       context: requirements/wordpress/
+    container_name: wordpress
+    volumes:
+      - ./www:/var/www/html
+
+  mariadb:
+    build:
+      context: requirements/mariadb/
+    container_name: mariadb

@@ -1,5 +1,8 @@
-FROM alpine:3.19
+FROM debian:latest
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+RUN apt update && apt upgrade -y && apt install -y \
+	nginx
 
-EXPOSE 80
+COPY ./default /etc/nginx/sites-available/default
+
+CMD ["nginx", "-g", "daemon off;"]
