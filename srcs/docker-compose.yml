@@ -8,6 +8,8 @@ services:
       - "443:443"
     volumes:
       - ./wordpress_html:/var/www/html
+    depends_on:
+      - wordpress
 
   wordpress:
     build:
@@ -15,8 +17,14 @@ services:
     container_name: wordpress
     volumes:
       - ./wordpress_html:/var/www/html
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
 
   mariadb:
     build:
       context: requirements/mariadb/
     container_name: mariadb
+    env_file:
+      - .env

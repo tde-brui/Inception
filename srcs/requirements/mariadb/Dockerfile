@@ -5,8 +5,10 @@ RUN apt update && apt upgrade -y && apt install -y \
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-COPY tools/init.sql /etc/mysql/init.sql
+COPY tools/entrypoint.sh .
 
 RUN mkdir /run/mysqld
 
-CMD ["mysqld"]
+RUN chmod +x entrypoint.sh
+
+CMD ["./entrypoint.sh"]
