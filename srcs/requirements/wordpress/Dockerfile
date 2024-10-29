@@ -2,8 +2,13 @@ FROM debian:latest
 
 RUN apt update && apt upgrade -y && apt install -y \
 	php-fpm \
-	php-mysql
+	php-mysqli \
+	curl 
 
-COPY ./www.conf /etc/php/8.2/fpm/pool.d/www.conf
+COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 
-CMD ["php-fpm8.2", "-F"]
+COPY tools/startup.sh .
+
+RUN chmod +x startup.sh
+
+CMD ["./startup.sh"]

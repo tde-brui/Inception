@@ -7,14 +7,14 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./www:/var/www/html
+      - ./wordpress_html:/var/www/html
 
   wordpress:
     build:
       context: requirements/wordpress/
     container_name: wordpress
     volumes:
-      - ./www:/var/www/html
+      - ./wordpress_html:/var/www/html
 
   mariadb:
     build:

@@ -3,4 +3,10 @@ FROM debian:latest
 RUN apt update && apt upgrade -y && apt install -y \
 	mariadb-server
 
-CMD ["mysqld_safe"]
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+
+COPY tools/init.sql /etc/mysql/init.sql
+
+RUN mkdir /run/mysqld
+
+CMD ["mysqld"]
