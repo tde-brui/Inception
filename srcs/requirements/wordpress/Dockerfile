@@ -1,7 +1,7 @@
-FROM debian:latest
+FROM debian:bookworm
 
 RUN apt update && apt upgrade -y && apt install -y \
-	php-fpm \
+	php8.2-fpm \
 	php-mysqli \
 	curl 
 
