@@ -1,5 +1,18 @@
-services:
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/tde-brui/data/wordpress_data
+      o: bind
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/tde-brui/data/mariadb_data
+      o: bind
 
+services:
   nginx:
     build:
       context: requirements/nginx/
@@ -7,7 +20,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress_html:/var/www/html
+      - wordpress_data:/var/www/html
     depends_on:
       - wordpress
     networks:
@@ -19,7 +32,7 @@ services:
       context: requirements/wordpress/
     container_name: wordpress
     volumes:
-      - wordpress_html:/var/www/html
+      - wordpress_data:/var/www/html
     depends_on:
       - mariadb
     env_file:
@@ -39,10 +52,6 @@ services:
     networks:
       - Inception_network
     restart: always
-
-volumes:
-  wordpress_html:
-  mariadb_data:
 
 networks:
   Inception_network:
