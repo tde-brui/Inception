@@ -16,6 +16,8 @@ services:
   nginx:
     build:
       context: requirements/nginx/
+    pull_policy: never
+    image: nginx
     container_name: nginx
     ports:
       - "443:443"
@@ -30,6 +32,8 @@ services:
   wordpress:
     build:
       context: requirements/wordpress/
+    pull_policy: never
+    image: wordpress
     container_name: wordpress
     volumes:
       - wordpress_data:/var/www/html
@@ -44,6 +48,8 @@ services:
   mariadb:
     build:
       context: requirements/mariadb/
+    pull_policy: never
+    image: mariadb
     container_name: mariadb
     volumes:
       - mariadb_data:/var/lib/mysql
